@@ -1,0 +1,3 @@
+- [x] initial setup
+- [x] create routes
+- [ ] set views
