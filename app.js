@@ -1,6 +1,9 @@
 const express = require('express')
 const app = express()
-const expressLayouts = require("express-ejs-layouts")
+const mongoose = require('mongoose')
+const dotenv = require('dotenv')
+dotenv.config()
+const expressLayouts = require('express-ejs-layouts')
 const port = process.env.PORT || 4000
 
 app.set('view engine', 'ejs')
@@ -11,4 +14,15 @@ app.use(express.static('public'))
 
 app.use('/', require('./routes/index'))
 
-app.listen(port, () => console.log(`App listening on port ${port}`))
+const start = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URL)
+    app.listen(port, () => console.log(`App is running on port ${port}`))
+    console.log('Connected to DB')
+  } catch (error) {
+    console.log(error)
+    process.exit(1)
+  }
+}
+
+start()
