@@ -2,4 +2,6 @@
 - [x] create routes
 - [x] set views
 - [x] connect to mongodb
-- [ ]
+- [x] collaborator routes & views
+- [x] create partials
+- [x] create models
