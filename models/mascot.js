@@ -1,4 +1,5 @@
 const { model, Schema, Types } = require('mongoose')
+const path = require('path')
 const imageBasePath = 'uploads/mascotImages'
 
 const mascotSchema = new Schema({
@@ -38,12 +39,12 @@ const mascotSchema = new Schema({
   },
 })
 
-// to escape the error - MulterError: Unexpected field
-// mascotSchema.virtual('imagePath').get(function () {
-//   if (this.imageName != null) {
-//     return path.join('/', imageBasePath, this.imageName)
-//   }
-// })
+// create virtual property for all mascots page
+mascotSchema.virtual('imagePath').get(function () {
+  if (this.imageName != null) {
+    return path.join('/', imageBasePath, this.imageName)
+  }
+})
 
 module.exports = model('Mascot', mascotSchema)
 module.exports.imageBasePath = imageBasePath

@@ -1,0 +1,22 @@
+<h2>Search Mascots</h2>
+<form action="/mascots" method="GET">
+  <div>
+    <label>Name</label>
+    <input type="text" name="name" value="<%= searchOptions.name %>" />
+  </div>
+  <div>
+    <label>Born After</label>
+    <input type="date" name="bornAfter" value="<%= searchOptions.bornAfter %>" />
+  </div>
+  <div>
+    <label>Born Before</label>
+    <input type="date" name="bornBefore" value="<%= searchOptions.bornBefore %>" />
+  </div>
+
+  <button type="submit">Search</button>
+</form>
+<br />
+<% mascots.forEach(mascot => { %>
+<!-- <div><%= mascot.name %></div> -->
+<img height="150" width="150" src="<%= mascot.imagePath %>">
+<% }) %>
