@@ -16,7 +16,7 @@ app.use(express.urlencoded({ limit: '10mb', extended: false }))
 app.use('/', require('./routes/index'))
 app.use('/collaborators', require('./routes/collaborator'))
 app.use('/mascots', require('./routes/mascots'))
-app.use("/auth", require("./routes/auth"));
+app.use("/", require("./routes/auth"));
 
 const start = async () => {
   try {

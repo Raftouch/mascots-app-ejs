@@ -9,4 +9,4 @@
 - [x] install multer library
 - [x] add search for mascots
 - [x] add auth
-- [ ]
+- [ ] protect routes

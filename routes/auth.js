@@ -2,13 +2,18 @@ const { Router } = require('express')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const { check, validationResult } = require('express-validator')
-const User = require('../models/collaborator')
+const User = require('../models/user')
 const router = Router()
 
 // -->  /register --> authentication
+router.get('/register', (req, res) => {
+  res.render('register')
+})
+
 router.post(
   '/register',
   [
+    check('name', 'Min length 2 characters').isLength({ min: 2 }),
     check('email', 'Wrong email').isEmail(),
     check('password', 'Min length 6 characters').isLength({ min: 6 }),
   ],
@@ -24,7 +29,7 @@ router.post(
         })
       }
 
-      const { email, password } = req.body
+      const { name, email, password } = req.body
       const candidate = await User.findOne({ email })
 
       if (candidate) {
@@ -32,11 +37,12 @@ router.post(
       }
 
       const hashedPassword = await bcrypt.hash(password, 12)
-      const user = new User({ email, password: hashedPassword })
+      const user = new User({ name, email, password: hashedPassword })
 
       await user.save()
 
       res.status(201).json({ message: 'User created successfully' })
+      return res.redirect('login')
     } catch (error) {
       res
         .status(500)
@@ -46,6 +52,10 @@ router.post(
 )
 
 // -->  /login --> authorization
+router.get('/login', (req, res) => {
+  res.render('login')
+})
+
 router.post(
   '/login',
   [
