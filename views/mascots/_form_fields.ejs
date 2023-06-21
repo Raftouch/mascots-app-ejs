@@ -1,0 +1,41 @@
+<div>
+  <label>Name</label>
+  <input type="text" name="name" value="<%= mascot.name %>" />
+</div>
+<div>
+  <label>Collaborator</label>
+  <select name="collaborator">
+    <% collaborators.forEach(collaborator => { %> 
+    <% if (collaborator.id === mascot.collaborator) { %>
+    <option selected label="<%= collaborator.name %>" value="<%= collaborator.id %>">
+      <% } else { %>
+      <option label="<%= collaborator.name %>" value="<%= collaborator.id %>">
+          <% } %>
+      <% }) %>
+    </option>
+  </select>
+</div>
+<div>
+  <label>Breed</label>
+  <input type="text" name="breed" 
+    value="<%= mascot.breed %>">
+</div>
+<div>
+  <label>Gender</label>
+  <input type="text" name="gender" 
+    value="<%= mascot.gender %>">
+</div>
+<div>
+  <label>Birth Date</label>
+  <input type="date" name="birthDate" 
+    value="<%= mascot.birthDate == null ? '' : mascot.birthDate.toISOString().split('T')[0] %>">
+</div>
+<div>
+  <label>Image</label>
+  <input type="file" name="image">
+</div>
+<div>
+  <label>Description</label>
+  <textarea name="description"><%= mascot.description %></textarea>
+</div>
+

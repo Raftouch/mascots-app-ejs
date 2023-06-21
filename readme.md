@@ -5,3 +5,6 @@
 - [x] collaborator routes & views
 - [x] create partials
 - [x] create models
+- [x] mascot routes & views
+- [x] install multer library
+- [ ]
