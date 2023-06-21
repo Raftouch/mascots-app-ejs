@@ -7,4 +7,6 @@
 - [x] create models
 - [x] mascot routes & views
 - [x] install multer library
+- [x] add search for mascots
+- [x] add auth
 - [ ]
