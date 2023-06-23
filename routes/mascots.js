@@ -41,17 +41,6 @@ router.get('/', async (req, res) => {
 // get a form for creating new mascot
 router.get('/new', async (req, res) => {
   renderNewPage(res, new Mascot())
-
-  // try {
-  //   const collaborators = await Collaborator.find({})
-  //   const mascot = new Mascot()
-  //   res.render('mascots/new', {
-  //     collaborators: collaborators,
-  //     mascot: mascot,
-  //   })
-  // } catch (error) {
-  //   res.redirect('/mascots')
-  // }
 })
 
 // create new mascot

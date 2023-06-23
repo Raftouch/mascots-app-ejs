@@ -41,7 +41,7 @@ router.post(
 
       await user.save()
 
-      res.status(201).json({ message: 'User created successfully' })
+    //   res.status(201).json({ message: 'User created successfully' })
       return res.redirect('login')
     } catch (error) {
       res
@@ -93,7 +93,9 @@ router.post(
         expiresIn: '1h',
       })
 
-      res.json({ token, userId: user.id })
+    //   res.json({ token, userId: user.id })
+      res.redirect('dashboard')
+      console.log(error);
     } catch (error) {
       res
         .status(500)
