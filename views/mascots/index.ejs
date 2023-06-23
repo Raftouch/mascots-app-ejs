@@ -1,4 +1,4 @@
-<h2>Search Mascots</h2>
+<h2 class="pt-36">Search Mascots</h2>
 <form action="/mascots" method="GET">
   <div>
     <label>Name</label>
@@ -17,6 +17,6 @@
 </form>
 <br />
 <% mascots.forEach(mascot => { %>
-<!-- <div><%= mascot.name %></div> -->
+<div><%= mascot.name %></div>
 <img height="150" width="150" src="<%= mascot.imagePath %>">
 <% }) %>

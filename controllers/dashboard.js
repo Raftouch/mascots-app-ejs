@@ -1,10 +1,14 @@
+const Mascot = require('../models/mascot')
+
 const dashboard = async (req, res) => {
-//   const locals = {
-//     title: 'Dashboard',
-//     description: 'Description',
-//   }
+  let mascots
+  try {
+    mascots = await Mascot.find().sort({ joinedAt: 'desc' }).limit(10).exec()
+  } catch (error) {
+    mascots = []
+  }
   res.render('dashboard/dashboard', {
-    // locals,
+    mascots: mascots,
     layout: '../views/layouts/dashboard',
   })
 }

@@ -40,6 +40,7 @@ router.post('/', async (req, res) => {
       collaborator: collaborator,
       errorMessage: 'Error creating Collaborator',
     })
+    // console.log(error);
   }
 })
 
