@@ -9,4 +9,5 @@
 - [x] install multer library
 - [x] add search for mascots
 - [x] add auth
+- [x] add tailwindcss
 - [ ] protect routes

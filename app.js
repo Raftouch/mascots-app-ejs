@@ -17,6 +17,7 @@ app.use('/', require('./routes/index'))
 app.use('/collaborators', require('./routes/collaborator'))
 app.use('/mascots', require('./routes/mascots'))
 app.use('/', require('./routes/auth'))
+app.use('/', require('./routes/dashboard'))
 
 const start = async () => {
   try {
