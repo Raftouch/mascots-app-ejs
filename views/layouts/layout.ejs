@@ -3,11 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet", href="../styles/styles.css" >
     <title>Mascots of our colleagues</title>
   </head>
   <body>
-    <%- include('../partials/header.ejs') %> 
-    <%- include('../partials/errorMessage.ejs') %> 
-    <%- body %>
+    <div class="bg-slate-100 h-screen">
+      <%- include('../partials/header.ejs') %> 
+      <%- include('../partials/errorMessage.ejs') %> 
+      <%- body %>
+      <%- include('../partials/footer.ejs') %>
+    </div>
   </body>
 </html>

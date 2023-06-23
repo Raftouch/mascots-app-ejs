@@ -1,17 +1,22 @@
-<h1>Register</h1>
-<form action="/register" method="POST">
-    <div>
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name" required />
-    </div>
-    <div>
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email" required />
-    </div>
-    <div>
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" required />
-    </div>
-    <button type="submit">Register</button>
-</form>
-<a href="/login">Login</a>
+<div class="flex flex-col gap-5 items-center pt-32">
+    <h1>Create Account</h1>
+    <form class="flex flex-col gap-5 items-center" action="/register" method="POST">
+        <div class="flex gap-5">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" required />
+        </div>
+        <div class="flex gap-5">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" required />
+        </div>
+        <div class="flex gap-5">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" required />
+        </div>
+        <button type="submit">Register</button>
+    </form>
+    <div class="flex gap-5">
+        <p>Already has an account?</p>
+        <a href="/login">Login</a>
+    </div> 
+</div>
