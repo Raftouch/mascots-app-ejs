@@ -1,7 +1,7 @@
 const express = require('express')
 const Collaborator = require('../models/collaborator')
 const router = express.Router()
-
+ 
 // get all collaborators
 router.get('/', async (req, res) => {
   let searchOptions = {}

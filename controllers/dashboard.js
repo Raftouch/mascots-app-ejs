@@ -7,6 +7,7 @@ const dashboard = async (req, res) => {
   } catch (error) {
     mascots = []
   }
+
   res.render('dashboard', {
     mascots: mascots,
   })
