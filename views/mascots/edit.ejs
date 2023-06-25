@@ -1,0 +1,6 @@
+<h2 class="pt-36">Edit Mascot</h2>
+<form action="/mascots/<%= mascot.id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+  <%- include('_form_fields') %>
+  <a href="/mascots">Cancel</a>
+  <button type="submit">Update</button>
+</form>

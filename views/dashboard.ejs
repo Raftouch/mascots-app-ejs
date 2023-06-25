@@ -3,7 +3,9 @@
   <div>
     <% mascots.forEach(mascot => { %>
     <div><%= mascot.name %></div>
-    <img height="150" width="150" src="<%= mascot.imagePath %>" />
+    <a href="/mascots/<%= mascot.id %>">
+      <img height="150" width="150" src="<%= mascot.imagePath %>" />
+    </a>
     <% }) %>
   </div>
 </div>

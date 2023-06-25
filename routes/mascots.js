@@ -57,8 +57,7 @@ router.post('/', upload.single('image'), async (req, res) => {
   })
   try {
     const newMascot = await mascot.save()
-    // res.redirect(`mascots/${newMascot.id}`)
-    res.redirect('mascots')
+    res.redirect(`mascots/${newMascot.id}`)
   } catch (error) {
     // so that we don't upload a pic if there is an error
     if (mascot.imageName != null) {
@@ -68,16 +67,91 @@ router.post('/', upload.single('image'), async (req, res) => {
   }
 })
 
+router.get('/:id', async (req, res) => {
+  try {
+    const mascot = await Mascot.findById(req.params.id)
+      .populate('collaborator')
+      .exec()
+    res.render('mascots/show', { mascot: mascot })
+  } catch (error) {
+    res.redirect('/dashboard')
+  }
+})
+
+router.get('/:id/edit', async (req, res) => {
+  try {
+    const mascot = await Mascot.findById(req.params.id)
+    renderEditPage(res, mascot)
+  } catch (error) {
+    res.redirect('/dashboard')
+  }
+})
+
+router.put('/:id', upload.single('image'), async (req, res) => {
+  const fileName = req.file != null ? req.file.filename : null
+
+  let mascot
+  try {
+    mascot = await Mascot.findById(req.params.id)
+    mascot.name = req.body.name,
+    mascot.collaborator = req.body.collaborator,
+    mascot.breed = req.body.breed,
+    mascot.gender = req.body.gender,
+    mascot.birthDate = new Date(req.body.birthDate),
+    mascot.imageName = fileName,
+    mascot.description = req.body.description
+
+    await mascot.save()
+    res.redirect(`/mascots/${mascot.id}`)
+  } catch (error) {
+    if (mascot != null) {
+      renderEditPage(res, mascot, true)
+    } else {
+      res.redirect('/dashboard')
+    }
+  }
+})
+
+router.delete('/:id', async (req, res) => {
+  let mascot
+  try {
+    mascot = await Mascot.findByIdAndRemove(req.params.id)
+    res.redirect('/mascots')
+  } catch (error) {
+    if (mascot != null) {
+      res.render('mascots/show'), {
+        mascot: mascot,
+        errorMessage: 'Could not delete mascot'
+      }
+    } else {
+      res.redirect('/dashboard')
+    }
+  }
+})
+
 async function renderNewPage(res, mascot, hasError = false) {
+  renderFormPage(res, mascot, 'new', hasError )
+}
+
+async function renderEditPage(res, mascot, hasError = false) {
+  renderFormPage(res, mascot, 'edit', hasError )
+}
+
+async function renderFormPage(res, mascot, form, hasError = false) {
   try {
     const collaborators = await Collaborator.find({})
     const params = {
       collaborators: collaborators,
       mascot: mascot,
     }
-    // const mascot = new Mascot()
-    if (hasError) params.errorMessage = 'Error creating Mascot'
-    res.render('mascots/new', params)
+    if (hasError) {
+      if (form === 'edit') {
+        params.errorMessage = 'Error updating Mascot'
+      } else {
+        params.errorMessage = 'Error creating Mascot'
+      }
+    }
+    res.render(`mascots/${form}`, params)
   } catch (error) {
     res.redirect('/mascots')
   }
