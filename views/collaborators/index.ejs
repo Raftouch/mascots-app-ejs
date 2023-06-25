@@ -7,4 +7,11 @@
 <br />
 <% collaborators.forEach(collaborator => { %>
 <div><%= collaborator.name %></div>
+  <a href="/collaborators/<%= collaborator.id %>">View</a>
+  <a href="/collaborators/<%= collaborator.id %>/edit">Edit</a>
+
+  <%- include('../partials/deleteForm', {
+    url: `/collaborators/${collaborator.id}`
+  }) %>
+
 <% }) %>
