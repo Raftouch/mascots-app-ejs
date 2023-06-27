@@ -46,7 +46,7 @@ app.use((req, res, next) => {
 })
 
 app.use('/', require('./routes/index'))
-app.use('/collaborators', require('./routes/collaborator'))
+app.use('/collaborators', require('./routes/collaborators'))
 app.use('/mascots', require('./routes/mascots'))
 app.use('/', require('./routes/auth'))
 app.use('/', require('./routes/dashboard'))

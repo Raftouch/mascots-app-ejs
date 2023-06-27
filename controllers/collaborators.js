@@ -1,11 +1,8 @@
-const express = require('express')
 const Collaborator = require('../models/collaborator')
 const Mascot = require('../models/mascot')
-const router = express.Router()
-const { ensureAuthenticated } = require('../config/auth')
 
 // get all collaborators
-router.get('/', ensureAuthenticated, async (req, res) => {
+const getAll = async (req, res) => {
   let searchOptions = {}
   if (req.query.name != null && req.query.name !== '') {
     searchOptions.name = new RegExp(req.query.name, 'i')
@@ -15,23 +12,23 @@ router.get('/', ensureAuthenticated, async (req, res) => {
     res.render('collaborators/index', {
       collaborators: collaborators,
       searchOptions: req.query,
-      layout: '../views/layouts/main' 
+      layout: '../views/layouts/main',
     })
   } catch (error) {
     res.redirect('/dashboard')
   }
-})
+}
 
 // get a form for creating new collaborator
-router.get('/new', ensureAuthenticated, (req, res) => {
-  res.render('collaborators/new', { 
+const getNew = (req, res) => {
+  res.render('collaborators/new', {
     collaborator: new Collaborator(),
-    layout: '../views/layouts/main' 
+    layout: '../views/layouts/main',
   })
-})
+}
 
 // create new collaborator
-router.post('/', ensureAuthenticated, async (req, res) => {
+const createOne = async (req, res) => {
   const collaborator = new Collaborator({ name: req.body.name })
   try {
     const newCollaborator = await collaborator.save()
@@ -40,38 +37,43 @@ router.post('/', ensureAuthenticated, async (req, res) => {
     res.render('collaborators/new', {
       collaborator: collaborator,
       errorMessage: 'Error creating Collaborator',
-      layout: '../views/layouts/main' 
+      layout: '../views/layouts/main',
     })
   }
-})
+}
 
-router.get('/:id', ensureAuthenticated, async (req, res) => {
+// get one collaborator by id
+const getOne = async (req, res) => {
   try {
     const collaborator = await Collaborator.findById(req.params.id)
-    const mascots = await Mascot.find({ collaborator: collaborator.id }).limit(5).exec()
+    const mascots = await Mascot.find({ collaborator: collaborator.id })
+      .limit(5)
+      .exec()
     res.render('collaborators/show', {
       collaborator: collaborator,
       mascotsByCollaborator: mascots,
-      layout: '../views/layouts/main' 
+      layout: '../views/layouts/main',
     })
   } catch (error) {
     res.redirect('/dashboard')
   }
-})
+}
 
-router.get('/:id/edit', ensureAuthenticated, async (req, res) => {
+// edit one
+const editOne = async (req, res) => {
   try {
     const collaborator = await Collaborator.findById(req.params.id)
-    res.render('collaborators/edit', { 
+    res.render('collaborators/edit', {
       collaborator: collaborator,
-      layout: '../views/layouts/main'  
+      layout: '../views/layouts/main',
     })
   } catch (error) {
     res.redirect('/collaborators')
   }
-})
+}
 
-router.put('/:id', ensureAuthenticated, async (req, res) => {
+// update one
+const updateOne = async (req, res) => {
   let collaborator
   try {
     collaborator = await Collaborator.findById(req.params.id)
@@ -85,25 +87,26 @@ router.put('/:id', ensureAuthenticated, async (req, res) => {
       res.render('collaborators/edit', {
         collaborator: collaborator,
         errorMessage: 'Error updating Collaborator',
-        layout: '../views/layouts/main' 
+        layout: '../views/layouts/main',
       })
     }
   }
-})
+}
 
-router.delete('/:id', ensureAuthenticated, async (req, res) => {
+//delete one
+const deleteOne = async (req, res) => {
   let collaborator
   try {
     const collaborator = await Collaborator.findById(req.params.id)
     const mascots = await Mascot.find({ collaborator: collaborator.id })
-    mascots.length > 0 
-    ? res.render('collaborators/show', {
-      collaborator: collaborator,
-      mascotsByCollaborator: mascots, 
-      errorMessage: 'This collaborator has mascots still',
-      layout: '../views/layouts/main' 
-    }) 
-    : (await collaborator.deleteOne() && res.redirect('/collaborators'))
+    mascots.length > 0
+      ? res.render('collaborators/show', {
+          collaborator: collaborator,
+          mascotsByCollaborator: mascots,
+          errorMessage: 'This collaborator has mascots still',
+          layout: '../views/layouts/main',
+        })
+      : (await collaborator.deleteOne()) && res.redirect('/collaborators')
   } catch (error) {
     if (collaborator == null) {
       res.redirect('/dashboard')
@@ -111,6 +114,14 @@ router.delete('/:id', ensureAuthenticated, async (req, res) => {
       res.redirect(`/collaborators/${collaborator.id}`)
     }
   }
-})
+}
 
-module.exports = router
+module.exports = {
+  getAll,
+  getNew,
+  createOne,
+  getOne,
+  editOne,
+  updateOne,
+  deleteOne,
+}
