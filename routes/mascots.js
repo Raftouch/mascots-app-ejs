@@ -1,6 +1,7 @@
 const express = require('express')
 const Mascot = require('../models/mascot')
 const Collaborator = require('../models/collaborator')
+const { ensureAuthenticated } = require('../config/auth')
 const router = express.Router()
 const path = require('path')
 const fs = require('fs')
@@ -15,7 +16,7 @@ const upload = multer({
 })
 
 // get all mascots
-router.get('/', async (req, res) => {
+router.get('/', ensureAuthenticated, async (req, res) => {
   // to activate our search line
   let query = Mascot.find()
   if (req.query.name != null && req.query.name !== '') {
@@ -32,6 +33,7 @@ router.get('/', async (req, res) => {
     res.render('mascots/index', {
       mascots: mascots,
       searchOptions: req.query,
+      layout: '../views/layouts/main' 
     })
   } catch (error) {
     res.redirect('/')
@@ -39,12 +41,12 @@ router.get('/', async (req, res) => {
 })
 
 // get a form for creating new mascot
-router.get('/new', async (req, res) => {
+router.get('/new', ensureAuthenticated, async (req, res) => {
   renderNewPage(res, new Mascot())
 })
 
 // create new mascot
-router.post('/', upload.single('image'), async (req, res) => {
+router.post('/', ensureAuthenticated, upload.single('image'), async (req, res) => {
   const fileName = req.file != null ? req.file.filename : null
   const mascot = new Mascot({
     name: req.body.name,
@@ -67,18 +69,22 @@ router.post('/', upload.single('image'), async (req, res) => {
   }
 })
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', ensureAuthenticated, async (req, res) => {
   try {
     const mascot = await Mascot.findById(req.params.id)
       .populate('collaborator')
       .exec()
-    res.render('mascots/show', { mascot: mascot })
+    res.render('mascots/show', { 
+      mascot: mascot,
+      layout: '../views/layouts/main' 
+    
+    })
   } catch (error) {
     res.redirect('/dashboard')
   }
 })
 
-router.get('/:id/edit', async (req, res) => {
+router.get('/:id/edit', ensureAuthenticated, async (req, res) => {
   try {
     const mascot = await Mascot.findById(req.params.id)
     renderEditPage(res, mascot)
@@ -87,7 +93,7 @@ router.get('/:id/edit', async (req, res) => {
   }
 })
 
-router.put('/:id', upload.single('image'), async (req, res) => {
+router.put('/:id', ensureAuthenticated, upload.single('image'), async (req, res) => {
   const fileName = req.file != null ? req.file.filename : null
 
   let mascot
@@ -112,7 +118,7 @@ router.put('/:id', upload.single('image'), async (req, res) => {
   }
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', ensureAuthenticated, async (req, res) => {
   let mascot
   try {
     mascot = await Mascot.findByIdAndRemove(req.params.id)
@@ -121,7 +127,8 @@ router.delete('/:id', async (req, res) => {
     if (mascot != null) {
       res.render('mascots/show'), {
         mascot: mascot,
-        errorMessage: 'Could not delete mascot'
+        errorMessage: 'Could not delete mascot',
+        layout: '../views/layouts/main' 
       }
     } else {
       res.redirect('/dashboard')
@@ -143,6 +150,7 @@ async function renderFormPage(res, mascot, form, hasError = false) {
     const params = {
       collaborators: collaborators,
       mascot: mascot,
+      layout: '../views/layouts/main' 
     }
     if (hasError) {
       if (form === 'edit') {

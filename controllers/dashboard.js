@@ -10,6 +10,7 @@ const dashboard = async (req, res) => {
 
   res.render('dashboard', {
     mascots: mascots,
+    layout: '../views/layouts/main'
   })
 }
 

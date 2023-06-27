@@ -1,9 +1,10 @@
 const { Router } = require('express')
 const router = Router()
 const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
+// const jwt = require('jsonwebtoken')
 const { check, validationResult } = require('express-validator')
 const User = require('../models/User')
+const passport = require('passport')
 
 router.get('/login', (req, res) => {
   res.render('login')
@@ -59,53 +60,73 @@ router.post(
   }
 )
 
-// /login --> authorization
-router.post(
-  '/login',
-  [
-    check('email', 'Please enter valid email').normalizeEmail().isEmail(),
-    check('password', 'Please enter valid password').exists(),
-  ],
-
-  async (req, res) => {
-    try {
-      const errors = validationResult(req)
-
-      if (!errors.isEmpty()) {
-        return res.status(400).json({
-          errors: errors.array(),
-          message: 'Wrong credentials',
-        })
-      }
-
-      const { email, password } = req.body
-      const user = await User.findOne({ email })
-
-      if (!user) {
-        return res.status(400).json({ message: 'User not found' })
-      }
-
-      const isMatch = await bcrypt.compare(password, user.password)
-
-      if (!isMatch) {
-        return res
-          .status(400)
-          .json({ message: 'Wrong password, please try again' })
-      }
-
-      const token = jwt.sign({ userId: user.id }, process.env.SECRET_KEY, {
-        expiresIn: '1h',
-      })
-
-      // res.json({ token, userId: user.id })
-      console.log(token)
-      res.redirect('dashboard')
-    } catch (error) {
-      res
-        .status(500)
-        .json({ message: 'Something went wrong, please try again' })
-    }
-  }
+// login handle
+router.post('/login', (req, res, next) =>
+  passport.authenticate('local', {
+    successRedirect: '/dashboard',
+    failureRedirect: '/login',
+    failureFlash: true,
+  })(req, res, next)
 )
+
+// logout handle
+router.get('/logout', (req, res, next) => {
+  req.logout((error) => {
+    if (error) return next(error)
+  })
+  // req.flash('success_msg', 'You are logged out')
+  // res.redirect('/')
+  res.redirect('/login')
+})
+
+
+// /login --> authorization
+// router.post(
+//   '/login',
+//   [
+//     check('email', 'Please enter valid email').normalizeEmail().isEmail(),
+//     check('password', 'Please enter valid password').exists(),
+//   ],
+
+//   async (req, res) => {
+//     try {
+//       const errors = validationResult(req)
+
+//       if (!errors.isEmpty()) {
+//         return res.status(400).json({
+//           errors: errors.array(),
+//           message: 'Wrong credentials',
+//         })
+//       }
+
+//       const { email, password } = req.body
+//       const user = await User.findOne({ email })
+
+//       if (!user) {
+//         return res.status(400).json({ message: 'User not found' })
+//       }
+
+//       const isMatch = await bcrypt.compare(password, user.password)
+
+//       if (!isMatch) {
+//         return res
+//           .status(400)
+//           .json({ message: 'Wrong password, please try again' })
+//       }
+
+//       const token = jwt.sign({ userId: user.id }, process.env.SECRET_KEY, {
+//         expiresIn: '1h',
+//       })
+
+//       // res.json({ token, userId: user.id })
+//       console.log(token)
+//       res.redirect('dashboard')
+//     } catch (error) {
+//       res
+//         .status(500)
+//         .json({ message: 'Something went wrong, please try again' })
+//     }
+//   }
+// )
 
 module.exports = router
