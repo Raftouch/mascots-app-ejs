@@ -51,13 +51,15 @@ app.use('/mascots', require('./routes/mascots'))
 app.use('/', require('./routes/auth'))
 app.use('/', require('./routes/dashboard'))
 
+app.get('/', (req, res) => {
+  res.render('index')
+})
+
 app.get('*', (req, res) => {
-  // res.status(404).
   res.render('404', {
     error_msg: 'Something went wrong, log in to access the app'
   })
 })
-
 
 const start = async () => {
   try {
