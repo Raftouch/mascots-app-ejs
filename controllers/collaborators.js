@@ -36,7 +36,7 @@ const createOne = async (req, res) => {
   } catch (error) {
     res.render('collaborators/new', {
       collaborator: collaborator,
-      errorMessage: 'Error creating Collaborator',
+      error_msg: 'Error creating Collaborator',
       layout: '../views/layouts/main',
     })
   }
@@ -86,7 +86,7 @@ const updateOne = async (req, res) => {
     } else {
       res.render('collaborators/edit', {
         collaborator: collaborator,
-        errorMessage: 'Error updating Collaborator',
+        error_msg: 'Error updating Collaborator',
         layout: '../views/layouts/main',
       })
     }
@@ -103,7 +103,7 @@ const deleteOne = async (req, res) => {
       ? res.render('collaborators/show', {
           collaborator: collaborator,
           mascotsByCollaborator: mascots,
-          errorMessage: 'This collaborator has mascots still',
+          error_msg: 'This collaborator has mascots still',
           layout: '../views/layouts/main',
         })
       : (await collaborator.deleteOne()) && res.redirect('/collaborators')

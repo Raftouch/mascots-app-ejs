@@ -1,15 +1,15 @@
 const express = require('express')
-const app = express()
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 dotenv.config()
 const expressLayouts = require('express-ejs-layouts')
 const methodOverride = require('method-override')
+const session = require('express-session')
 const flash = require('connect-flash')
+const passport = require('passport')
+const app = express()
 const port = process.env.PORT || 4000
 
-const session = require('express-session')
-const passport = require('passport')
 // passport config
 require('./config/passport')(passport)
 
@@ -52,7 +52,10 @@ app.use('/', require('./routes/auth'))
 app.use('/', require('./routes/dashboard'))
 
 app.get('*', (req, res) => {
-  res.status(404).render('404')
+  // res.status(404).
+  res.render('404', {
+    error_msg: 'Something went wrong, log in to access the app'
+  })
 })
 
 

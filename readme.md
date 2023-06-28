@@ -8,6 +8,6 @@
 - [x] mascot routes & views
 - [x] install multer library
 - [x] add search for mascots
-- [x] add auth
+- [x] add auth & passport
 - [x] add tailwindcss
-- [ ] protect routes
+- [x] protect routes

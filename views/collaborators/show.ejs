@@ -1,4 +1,4 @@
-<h2><%= collaborator.name %></h2>
+<h2 class="pt-36"><%= collaborator.name %></h2>
 <a href="/collaborators/<%= collaborator.id %>/edit">Edit</a>
 <%- include('../partials/deleteForm', { url: `/collaborators/${collaborator.id}` }) %>
 
