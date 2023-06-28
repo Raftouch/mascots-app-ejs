@@ -1,9 +1,9 @@
-<h2 class="pt-36"><%= collaborator.name %></h2>
+<h2 class="pt-36">Hi, I'm <%= collaborator.name %></h2>
 <a href="/collaborators/<%= collaborator.id %>/edit">Edit</a>
 <%- include('../partials/deleteForm', { url: `/collaborators/${collaborator.id}` }) %>
 
 <% if (mascotsByCollaborator.length > 0) { %>
-    <h2>Mascots by Collaborator</h2>
+    <h2>Meet my mascots</h2>
     <% mascotsByCollaborator.forEach(mascot => { %>
         <div><%= mascot.name %></div>
         <a href="/mascots/<%= mascot.id %>">

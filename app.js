@@ -45,7 +45,6 @@ app.use((req, res, next) => {
   next()
 })
 
-app.use('/', require('./routes/index'))
 app.use('/collaborators', require('./routes/collaborators'))
 app.use('/mascots', require('./routes/mascots'))
 app.use('/', require('./routes/auth'))
@@ -57,7 +56,7 @@ app.get('/', (req, res) => {
 
 app.get('*', (req, res) => {
   res.render('404', {
-    error_msg: 'Something went wrong, log in to access the app'
+    error_msg: 'Something went wrong, log in to access the app',
   })
 })
 
