@@ -1,6 +1,9 @@
-<h2 class="pt-36">New Mascot</h2>
+<h2 class="pt-32 mb-8">New Mascot</h2>
+<%- include("../partials/messages.ejs") %>
 <form action="/mascots" method="POST" enctype="multipart/form-data">
   <%- include('_form_fields') %>
-  <a href="/mascots">Cancel</a>
-  <button type="submit">Create</button>
+  <div class="flex gap-5 mt-8">
+    <a class="bg-red-600 text-slate-100 py-2 px-4 text-sm" href="/mascots">Cancel</a>
+    <button class="bg-green-600 text-slate-100 py-2 px-4 text-sm" type="submit">Create</button>
+  </div>
 </form>

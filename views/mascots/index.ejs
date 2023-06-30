@@ -1,24 +1,33 @@
-<h2 class="pt-36">Search Mascots</h2>
-<form action="/mascots" method="GET">
-  <div>
-    <label>Name</label>
-    <input type="text" name="name" value="<%= searchOptions.name %>" />
-  </div>
-  <div>
-    <label>Born After</label>
-    <input type="date" name="bornAfter" value="<%= searchOptions.bornAfter %>" />
-  </div>
-  <div>
-    <label>Born Before</label>
-    <input type="date" name="bornBefore" value="<%= searchOptions.bornBefore %>" />
+<div class="pt-32 flex flex-col gap-8 justify-items-center">
+  <h2 class="text-center">Search Mascots</h2>
+  <form class="flex flex-col items-center" action="/mascots" method="GET">
+    <div>
+      <label>Name</label>
+      <input type="text" name="name" value="<%= searchOptions.name %>" />
+    </div>
+    <div>
+      <label>Born After</label>
+      <input type="date" name="bornAfter" value="<%= searchOptions.bornAfter %>" />
+    </div>
+    <div>
+      <label>Born Before</label>
+      <input type="date" name="bornBefore" value="<%= searchOptions.bornBefore %>" />
+    </div>
+    <button type="submit">Search</button>
+  </form>
+  
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 md:grid-cols-3 xl:grid-cols-4 justify-items-center mb-5">
+    <% mascots.forEach(mascot => { %>
+  
+      <div class="text-center">
+        <div><%= mascot.name %></div>
+        <a href="/mascots/<%= mascot.id %>">
+          <img class="w-[200px] h-[150px]" src="<%= mascot.imagePath %>">
+        </a>
+  
+      </div>
+    <% }) %>
   </div>
 
-  <button type="submit">Search</button>
-</form>
-<br />
-<% mascots.forEach(mascot => { %>
-<div><%= mascot.name %></div>
-<a href="/mascots/<%= mascot.id %>">
-  <img height="150" width="150" src="<%= mascot.imagePath %>">
-</a>
-<% }) %>
+</div>
+

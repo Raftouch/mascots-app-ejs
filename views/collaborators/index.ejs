@@ -1,17 +1,28 @@
-<h2 class="pt-36">Search Collaborators</h2>
-<form action="/collaborators" method="GET">
-  <label>Name</label>
-  <input type="text" name="name" value="<%= searchOptions.name %>" />
-  <button type="submit">Search</button>
-</form>
-<br />
-<% collaborators.forEach(collaborator => { %>
-<div><%= collaborator.name %></div>
-  <a href="/collaborators/<%= collaborator.id %>">View</a>
-  <a href="/collaborators/<%= collaborator.id %>/edit">Edit</a>
+<div class="flex flex-col max-w-[1000px] justify-center m-auto p-5">
 
-  <%- include('../partials/deleteForm', {
-    url: `/collaborators/${collaborator.id}`
-  }) %>
+  <div class="flex flex-col gap-5 mb-10 items-start">
+    <h2 class="pt-32">Search Collaborators</h2>
+    <form action="/collaborators" method="GET">
+      <label>Name</label>
+      <input type="text" name="name" value="<%= searchOptions.name %>" />
+      <button type="submit">Search</button>
+    </form>
+  </div>
+
+  <div>
+    <% collaborators.forEach(collaborator => { %>
+      <div class="flex justify-between">
+        <div><%= collaborator.name %></div>
+        <div class="flex gap-5 mb-5">
+          <a class="bg-slate-900 text-slate-100 py-2 px-4 text-sm" href="/collaborators/<%= collaborator.id %>">View</a>
+          <a class="bg-amber-600 text-slate-100 py-2 px-4 text-sm" href="/collaborators/<%= collaborator.id %>/edit">Edit</a>
+        
+          <%- include('../partials/deleteForm', {
+            url: `/collaborators/${collaborator.id}`
+          }) %>
+        </div>
+      </div>
+    <% }) %>
+  </div>
   
-<% }) %>
+</div>
