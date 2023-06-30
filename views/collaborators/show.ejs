@@ -1,21 +1,23 @@
-
-<h2 class="pt-32">Hi, I'm <%= collaborator.name %></h2>
-
-<% if (mascotsByCollaborator.length > 0) { %>
-    <h2>Meet my mascots</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 md:grid-cols-3 xl:grid-cols-4 justify-items-center mb-5">
-        <% mascotsByCollaborator.forEach(mascot => { %>
-            <div class="text-center">
-                <div><%= mascot.name %></div>
-                <a href="/mascots/<%= mascot.id %>">
-                    <img class="w-[200px] h-[150px]" src="<%= mascot.imagePath %>">
-                </a>
-            </div>
-        <% }) %>
-    </div>
-<% } %>
-
-        <div class="flex gap-5 mb-5">
-            <a class="bg-slate-900 text-slate-100 py-2 px-4 text-sm" href="/collaborators/<%= collaborator.id %>/edit">Edit</a>
-            <%- include('../partials/deleteForm', { url: `/collaborators/${collaborator.id}` }) %>
+<div class="flex flex-col items-center text-center gap-5">
+    <h2 class="pt-32">Hi, I'm <%= collaborator.name %></h2>
+    <%- include("../partials/messages.ejs") %>
+    
+    <% if (mascotsByCollaborator.length > 0) { %>
+        <h2>Meet my mascots</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-10 md:grid-cols-3 xl:grid-cols-4 justify-items-center mb-5">
+            <% mascotsByCollaborator.forEach(mascot => { %>
+                <div>
+                    <div class="mb-3"><%= mascot.name %></div>
+                    <a href="/mascots/<%= mascot.id %>">
+                        <img class="w-[300px] h-[250px]" src="<%= mascot.imagePath %>">
+                    </a>
+                </div>
+            <% }) %>
         </div>
+    <% } %>
+    
+    <div class="flex gap-5 mb-5">
+        <a class="bg-amber-600 text-slate-100 py-2 px-4 text-sm" href="/collaborators/<%= collaborator.id %>/edit">Edit</a>
+        <%- include('../partials/deleteForm', { url: `/collaborators/${collaborator.id}` }) %>
+    </div>
+</div>

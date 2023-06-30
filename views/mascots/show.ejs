@@ -1,11 +1,22 @@
-<h2 class="pt-36">Welcome to <%= mascot.name %>'s World!</h2>
-<img width="150" height="150" src="<%= mascot.imagePath %>" />
-<div>Collaborator: <%= mascot.collaborator.name %></div>
-<div>Birth Date: <%= mascot.birthDate.toDateString() %></div>
-<div>Breed: <%= mascot.breed %></div>
-<div>Gender: <%= mascot.gender %></div>
-<div>Description: <%= mascot.description %></div>
+<div class="flex flex-col">
+  <h2 class="pt-32 text-center">Welcome to <%= mascot.name %>'s World!</h2>
 
-<a href="/mascots/<%= mascot.id %>/edit">Edit</a>
-<%- include('../partials/deleteForm', {url: `/mascots/${mascot.id}`}) %>
-<a href="/collaborators/<%= mascot.collaborator.id %>">View Collaborator</a>
+  <div class="flex flex-wrap gap-8 mb-8 mt-8 justify-center">
+    <img class="w-[300px] h-[250px]" src="<%= mascot.imagePath %>" />
+    <div class="flex flex-col gap-2">
+      <div>Collaborator: <%= mascot.collaborator.name %></div>
+      <div>Birth Date: <%= mascot.birthDate.toDateString() %></div>
+      <div>Breed: <%= mascot.breed %></div>
+      <div>Gender: <%= mascot.gender %></div>
+      <div>Description: <%= mascot.description %></div>
+    </div>
+  </div>
+
+  <div class="flex flex-col gap-2 m-auto">
+    <div class="flex justify-between">
+      <a class="bg-amber-600 text-slate-100 py-2 px-4 text-sm" href="/mascots/<%= mascot.id %>/edit">Edit</a>
+      <%- include('../partials/deleteForm', {url: `/mascots/${mascot.id}`}) %>
+    </div>
+    <a class="bg-slate-900 text-slate-100 py-2 px-4 text-sm" href="/collaborators/<%= mascot.collaborator.id %>">View Collaborator</a>
+  </div>
+</div>

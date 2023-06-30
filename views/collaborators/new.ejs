@@ -1,10 +1,13 @@
-<h2 class="pt-32">New Collaborator</h2>
-<%- include("../partials/messages.ejs") %>
-<form action="/collaborators" method="POST">
-  <%- include('_form_fields') %>
-  <div class="flex gap-5 mt-8">
-    <a class="bg-red-600 text-slate-100 py-2 px-4 text-sm" href="/collaborators">Cancel</a>
-    <button class="bg-green-600 text-slate-100 py-2 px-4 text-sm" type="submit">Create</button>
-  </div>
-</form>
+<div class="pt-32 flex flex-col gap-8 ml-8">
+  <h2>New Collaborator</h2>
+  <%- include("../partials/messages.ejs") %>
+  <form action="/collaborators" method="POST">
+    <%- include('_form_fields') %>
+    <div class="flex gap-5 mt-8">
+      <a class="bg-red-600 text-slate-100 py-2 px-4 text-sm" href="/collaborators">Cancel</a>
+      <button class="bg-green-600 text-slate-100 py-2 px-4 text-sm" type="submit">Create</button>
+    </div>
+  </form>
+</div>
+
 
