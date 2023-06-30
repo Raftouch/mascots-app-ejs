@@ -1,11 +1,12 @@
 
 <div class="flex flex-col gap-3">
 
-  <div>
+  <div class="flex justify-between gap-5"> 
     <label>Name</label>
     <input type="text" name="name" value="<%= mascot.name %>" />
   </div>
-  <div>
+
+  <div class="flex justify-between gap-5">
     <label>Collaborator</label>
     <select name="collaborator">
       <% collaborators.forEach(collaborator => { %> 
@@ -16,28 +17,25 @@
                 <% } %>
                 <% }) %>
               </option>
-  </select>
-</div>
-<div>
+    </select>
+  </div>
+<div class="flex justify-between gap-5">
   <label>Breed</label>
-  <input type="text" name="breed" 
-  value="<%= mascot.breed %>">
+  <input type="text" name="breed" value="<%= mascot.breed %>">
 </div>
-<div>
+<div class="flex justify-between gap-5">
   <label>Gender</label>
-  <input type="text" name="gender" 
-  value="<%= mascot.gender %>">
+  <input type="text" name="gender" value="<%= mascot.gender %>">
 </div>
-<div>
+<div class="flex justify-between gap-5">
   <label>Birth Date</label>
-  <input type="date" name="birthDate" 
-  value="<%= mascot.birthDate == null ? '' : mascot.birthDate.toISOString().split('T')[0] %>">
+  <input type="date" name="birthDate" value="<%= mascot.birthDate == null ? '' : mascot.birthDate.toISOString().split('T')[0] %>">
 </div>
-<div>
+<div class="flex justify-between gap-5">
   <label>Image</label>
   <input type="file" name="image">
 </div>
-<div>
+<div class="flex justify-between gap-5">
   <label>Description</label>
   <textarea name="description"><%= mascot.description %></textarea>
 </div>

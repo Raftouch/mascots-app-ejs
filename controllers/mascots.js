@@ -87,7 +87,7 @@ const updateOne = async (req, res) => {
 
   let mascot
   try {
-    mascot = await Mascot.findById(req.params.id)
+    mascot = await Mascot.findById(req.params.id),
       (mascot.name = req.body.name),
       (mascot.collaborator = req.body.collaborator),
       (mascot.breed = req.body.breed),
@@ -141,6 +141,7 @@ async function renderFormPage(res, mascot, form, hasError = false) {
       mascot: mascot,
       layout: '../views/layouts/main',
     }
+    res.render(`mascots/${form}`, params)
     if (hasError) {
       if (form === 'edit') {
         params.error_msg = 'Error updating Mascot'
@@ -148,7 +149,6 @@ async function renderFormPage(res, mascot, form, hasError = false) {
         params.error_msg = 'Error creating Mascot'
       }
     }
-    res.render(`mascots/${form}`, params)
   } catch (error) {
     res.redirect('/mascots')
   }

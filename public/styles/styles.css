@@ -524,9 +524,6 @@ video {
 .h-\[80px\] {
   height: 80px;
 }
-.h-full {
-  height: 100%;
-}
 .h-screen {
   height: 100vh;
 }
