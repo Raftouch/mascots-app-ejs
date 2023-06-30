@@ -87,16 +87,16 @@ const updateOne = async (req, res) => {
 
   let mascot
   try {
-    mascot = await Mascot.findById(req.params.id),
-      (mascot.name = req.body.name),
-      (mascot.collaborator = req.body.collaborator),
-      (mascot.breed = req.body.breed),
-      (mascot.gender = req.body.gender),
-      (mascot.birthDate = new Date(req.body.birthDate)),
-      (mascot.imageName = fileName),
-      (mascot.description = req.body.description)
+    mascot = await Mascot.findByIdAndUpdate(req.params.id),
+      mascot.name = req.body.name,
+      mascot.collaborator = req.body.collaborator,
+      mascot.breed = req.body.breed,
+      mascot.gender = req.body.gender,
+      mascot.birthDate = new Date(req.body.birthDate),
+      mascot.imageName = fileName,
+      mascot.description = req.body.description
 
-    await mascot.save()
+    // await mascot.save()
     res.redirect(`/mascots/${mascot.id}`)
   } catch (error) {
     if (mascot != null) {
