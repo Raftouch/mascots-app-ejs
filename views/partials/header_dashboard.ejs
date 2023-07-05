@@ -1,10 +1,14 @@
-<header class="fixed w-full h-[80px] bg-slate-900 text-slate-100 flex flex-wrap pr-5 pl-5 items-center justify-between">
+<header class="header fixed w-full h-[80px] bg-slate-900 text-slate-100 flex flex-wrap pr-5 pl-5 items-center justify-between">
   <a class="hover:text-slate-300" href="/dashboard">Dashboard</a>
-  <ul class="flex gap-5">
-    <li><a class="hover:text-slate-300" href="/collaborators"><iconify-icon icon="icon-park-solid:people"></iconify-icon></a></li>
-    <li><a class="hover:text-slate-300" href="/collaborators/new">Add Collaborator</a></li>
-    <li><a class="hover:text-slate-300" href="/mascots"><iconify-icon icon="ion:paw"></iconify-icon></a></li>
-    <li><a class="hover:text-slate-300" href="/mascots/new">Add mascot</a></li>
-    <li><a class="hover:text-slate-300" href="/logout"><iconify-icon icon="tabler:logout"></iconify-icon></a></li>
-  </ul>
+  <nav class="navbar">
+    <input type="checkbox" class="toggle-menu" />
+    <div class="ham"></div>
+    <ul class="menu flex gap-5">
+      <li><a class="hover:text-slate-300" href="/collaborators">Collaborators</a></li>
+      <li><a class="hover:text-slate-300" href="/collaborators/new">Add Collaborator</a></li>
+      <li><a class="hover:text-slate-300" href="/mascots">Mascots</a></li>
+      <li><a class="hover:text-slate-300" href="/mascots/new">Add Mascot</a></li>
+      <li><a class="hover:text-slate-300" href="/logout"><iconify-icon icon="tabler:logout"></iconify-icon></a></li>
+    </ul>
+  </nav>
 </header>
