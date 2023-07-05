@@ -1,7 +1,7 @@
-<div class="pt-32 flex flex-col gap-8">
-  <h2 class="text-center">New Collaborator</h2>
+<div class="pt-32 items-center flex flex-col gap-8">
+  <h2>New Collaborator</h2>
   <%- include("../partials/messages.ejs") %>
-  <div class="flex items-center justify-center">
+  <div class="flex justify-center">
     <form class="flex flex-col gap-3 items-center" action="/collaborators" method="POST">
       <%- include('_form_fields') %>
       <div class="flex gap-5 mt-8">
