@@ -521,8 +521,8 @@ video {
 .h-\[80px\] {
   height: 80px;
 }
-.h-screen {
-  height: 100vh;
+.min-h-screen {
+  min-height: 100vh;
 }
 .w-\[200px\] {
   width: 200px;
@@ -633,6 +633,9 @@ video {
 }
 .pt-40 {
   padding-top: 10rem;
+}
+.pt-5 {
+  padding-top: 1.25rem;
 }
 .text-center {
   text-align: center;

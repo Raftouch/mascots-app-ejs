@@ -55,9 +55,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('*', (req, res) => {
-  res.render('404', {
-    error_msg: 'Something went wrong, log in to access the app',
-  })
+  res.render('404')
 })
 
 const start = async () => {

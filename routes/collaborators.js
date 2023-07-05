@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const { ensureAuthenticated } = require('../config/auth')
 const {
   getAll,
   getNew,
@@ -9,7 +10,6 @@ const {
   updateOne,
   deleteOne,
 } = require('../controllers/collaborators')
-const { ensureAuthenticated } = require('../config/auth')
 
 // get all collaborators
 router.get('/', ensureAuthenticated, getAll)
@@ -29,7 +29,7 @@ router.get('/:id/edit', ensureAuthenticated, editOne)
 // update one
 router.put('/:id', ensureAuthenticated, updateOne)
 
-//delete one
+// delete one
 router.delete('/:id', ensureAuthenticated, deleteOne)
 
 module.exports = router

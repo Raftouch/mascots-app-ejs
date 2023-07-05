@@ -1,11 +1,10 @@
 const express = require('express')
 const Mascot = require('../models/mascot')
-const { ensureAuthenticated } = require('../config/auth')
 const router = express.Router()
 const path = require('path')
 const uploadPath = path.join('public', Mascot.imageBasePath)
 const imageMimeTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif']
-const multer = require('multer')
+const { ensureAuthenticated } = require('../config/auth')
 const {
   getAll,
   createOne,
@@ -15,6 +14,7 @@ const {
   updateOne,
   deleteOne,
 } = require('../controllers/mascots')
+const multer = require('multer')
 const upload = multer({
   dest: uploadPath,
   fileFilter: (req, file, callback) => {
