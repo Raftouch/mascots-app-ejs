@@ -87,7 +87,7 @@ const updateOne = async (req, res) => {
 
   let mascot
   try {
-    mascot = await Mascot.findByIdAndUpdate(req.params.id)
+    mascot = await Mascot.findById(req.params.id)
       mascot.name = req.body.name
       mascot.collaborator = req.body.collaborator
       mascot.breed = req.body.breed
@@ -99,6 +99,9 @@ const updateOne = async (req, res) => {
     await mascot.save()
     res.redirect(`/mascots/${mascot.id}`)
   } catch (error) {
+    if (mascot.imageName != null) {
+      removeImage(mascot.imageName);
+    }
     if (mascot != null) {
       renderEditPage(res, mascot, true)
     } else {
@@ -125,6 +128,12 @@ const deleteOne = async (req, res) => {
   }
 }
 
+function removeImage(fileName) {
+  fs.unlink(path.join(uploadPath, fileName), (error) => {
+    if (error) console.log(error)
+  })
+}
+
 async function renderNewPage(res, mascot, hasError = false) {
   renderFormPage(res, mascot, 'new', hasError)
 }
@@ -141,7 +150,6 @@ async function renderFormPage(res, mascot, form, hasError = false) {
       mascot: mascot,
       layout: '../views/layouts/main',
     }
-    res.render(`mascots/${form}`, params)
     if (hasError) {
       if (form === 'edit') {
         params.error_msg = 'Error updating Mascot'
@@ -149,16 +157,12 @@ async function renderFormPage(res, mascot, form, hasError = false) {
         params.error_msg = 'Error creating Mascot'
       }
     }
+    res.render(`mascots/${form}`, params)
   } catch (error) {
     res.redirect('/mascots')
   }
 }
 
-function removeImage(fileName) {
-  fs.unlink(path.join(uploadPath, fileName), (error) => {
-    if (error) console.log(error)
-  })
-}
 
 module.exports = {
   getAll,
