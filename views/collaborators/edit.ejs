@@ -1,7 +1,13 @@
-<h2 class="pt-32">Edit Collaborator</h2>
-<%- include("../partials/messages.ejs") %>
-<form action="/collaborators/<%= collaborator.id %>?_method=PUT" method="POST">
-  <%- include('_form_fields') %>
-  <a href="/collaborators/<%= collaborator.id %>">Cancel</a>
-  <button type="submit">Update</button>
-</form>
+<div class="pt-32 flex items-center flex-col gap-8">
+  <h2>Edit Collaborator</h2>
+  <%- include("../partials/messages.ejs") %>
+  <div class="flex justify-center">
+    <form class="flex flex-col gap-3 items-center" action="/collaborators/<%= collaborator.id %>?_method=PUT" method="POST">
+      <%- include('_form_fields') %>
+      <div class="flex gap-5">
+        <a class="bg-red-600 text-slate-100 py-2 px-4 text-sm" href="/collaborators/<%= collaborator.id %>">Cancel</a>
+        <button class="bg-green-600 text-slate-100 py-2 px-4 text-sm" type="submit">Update</button>
+      </div>
+    </form>
+  </div>
+</div>
