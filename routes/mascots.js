@@ -22,25 +22,18 @@ const upload = multer({
   },
 })
 
-// get all mascots
 router.get('/', ensureAuthenticated, getAll)
 
-// get a form for creating new mascot
 router.get('/new', ensureAuthenticated, getNew)
 
-// create new mascot
 router.post('/', ensureAuthenticated, upload.single('image'), createOne)
 
-// get one
 router.get('/:id', ensureAuthenticated, getOne)
 
-// edit one
 router.get('/:id/edit', ensureAuthenticated, editOne)
 
-// update one
 router.put('/:id', ensureAuthenticated, upload.single('image'), updateOne)
 
-// delete one
 router.delete('/:id', ensureAuthenticated, deleteOne)
 
 module.exports = router

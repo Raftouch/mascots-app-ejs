@@ -1,7 +1,6 @@
 const Collaborator = require('../models/collaborator')
 const Mascot = require('../models/mascot')
 
-// get all collaborators
 const getAll = async (req, res) => {
   let searchOptions = {}
   if (req.query.name != null && req.query.name !== '') {
@@ -19,7 +18,6 @@ const getAll = async (req, res) => {
   }
 }
 
-// get a form for creating new collaborator
 const getNew = (req, res) => {
   res.render('collaborators/new', {
     collaborator: new Collaborator(),
@@ -27,7 +25,6 @@ const getNew = (req, res) => {
   })
 }
 
-// create new collaborator
 const createOne = async (req, res) => {
   const collaborator = new Collaborator({ name: req.body.name })
   try {
@@ -42,7 +39,6 @@ const createOne = async (req, res) => {
   }
 }
 
-// get one collaborator by id
 const getOne = async (req, res) => {
   try {
     const collaborator = await Collaborator.findById(req.params.id)
@@ -59,7 +55,6 @@ const getOne = async (req, res) => {
   }
 }
 
-// edit one
 const editOne = async (req, res) => {
   try {
     const collaborator = await Collaborator.findById(req.params.id)
@@ -72,7 +67,6 @@ const editOne = async (req, res) => {
   }
 }
 
-// update one
 const updateOne = async (req, res) => {
   let collaborator
   try {
@@ -93,7 +87,6 @@ const updateOne = async (req, res) => {
   }
 }
 
-//delete one
 const deleteOne = async (req, res) => {
   let collaborator
   try {

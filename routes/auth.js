@@ -11,13 +11,10 @@ router.get('/register', (req, res) => {
   res.render('register')
 })
 
-// register handle
 router.post('/register', registerValidation, register)
 
-// login handle
 router.post('/login', login)
 
-// logout handle
 router.get('/logout', logout)
 
 module.exports = router

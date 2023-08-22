@@ -4,9 +4,7 @@ const fs = require('fs')
 const path = require('path')
 const uploadPath = path.join('public', Mascot.imageBasePath)
 
-// get all mascots
 const getAll = async (req, res) => {
-  // to activate our search line
   let query = Mascot.find()
   if (req.query.name != null && req.query.name !== '') {
     query = query.regex('name', new RegExp(req.query.name, 'i'))
@@ -29,12 +27,10 @@ const getAll = async (req, res) => {
   }
 }
 
-// get a form for creating new mascot
 const getNew = async (req, res) => {
   renderNewPage(res, new Mascot())
 }
 
-// create new mascot
 const createOne = async (req, res) => {
   const fileName = req.file != null ? req.file.filename : null
   const mascot = new Mascot({
@@ -50,7 +46,6 @@ const createOne = async (req, res) => {
     const newMascot = await mascot.save()
     res.redirect(`mascots/${newMascot.id}`)
   } catch (error) {
-    // so that we don't upload a pic if there is an error
     if (mascot.imageName != null) {
       removeImage(mascot.imageName)
     }
@@ -66,7 +61,6 @@ const getOne = async (req, res) => {
     res.render('mascots/show', {
       mascot: mascot,
       layout: '../views/layouts/main',
-      // success_msg: `Welcome to ${mascot.name} world!`
     })
   } catch (error) {
     res.redirect('/dashboard')
@@ -88,19 +82,19 @@ const updateOne = async (req, res) => {
   let mascot
   try {
     mascot = await Mascot.findById(req.params.id)
-      mascot.name = req.body.name
-      mascot.collaborator = req.body.collaborator
-      mascot.breed = req.body.breed
-      mascot.gender = req.body.gender
-      mascot.birthDate = new Date(req.body.birthDate)
-      mascot.imageName = fileName
-      mascot.description = req.body.description
+    mascot.name = req.body.name
+    mascot.collaborator = req.body.collaborator
+    mascot.breed = req.body.breed
+    mascot.gender = req.body.gender
+    mascot.birthDate = new Date(req.body.birthDate)
+    mascot.imageName = fileName
+    mascot.description = req.body.description
 
     await mascot.save()
     res.redirect(`/mascots/${mascot.id}`)
   } catch (error) {
     if (mascot.imageName != null) {
-      removeImage(mascot.imageName);
+      removeImage(mascot.imageName)
     }
     if (mascot != null) {
       renderEditPage(res, mascot, true)
@@ -117,7 +111,8 @@ const deleteOne = async (req, res) => {
     res.redirect('/mascots')
   } catch (error) {
     if (mascot != null) {
-      res.render('mascots/show'), {
+      res.render('mascots/show'),
+        {
           mascot: mascot,
           error_msg: `Could not delete ${mascot.name}`,
           layout: '../views/layouts/main',
@@ -162,7 +157,6 @@ async function renderFormPage(res, mascot, form, hasError = false) {
     res.redirect('/mascots')
   }
 }
-
 
 module.exports = {
   getAll,
