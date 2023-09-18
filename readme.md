@@ -11,3 +11,4 @@
 - [x] add auth & passport
 - [x] add tailwindcss
 - [x] protect routes
+- [x] add pagination
