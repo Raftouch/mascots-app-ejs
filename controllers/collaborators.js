@@ -12,6 +12,7 @@ const getAll = async (req, res) => {
 
   try {
     const collaborators = await Collaborator.find(searchOptions)
+      .sort({ name: 'asc' })
       .skip(perPage * page - perPage)
       .limit(perPage)
       .exec()
