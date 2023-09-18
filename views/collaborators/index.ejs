@@ -41,7 +41,7 @@
    
      <% for(; i <= (Number(current) + 4) && i <= pages; i++ ) { %>
        <% if (i == current) { %>
-         <li class="page-active"><a href=""><%= i %></a></li>
+         <li class="text-slate-100 bg-slate-900 px-4"><a href=""><%= i %></a></li>
        <% } else { %>
          <li><a href="/collaborators/?page=<%= i %>"><%= i %></a></li>
        <% } %>
