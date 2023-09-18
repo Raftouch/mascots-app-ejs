@@ -6,11 +6,22 @@ const getAll = async (req, res) => {
   if (req.query.name != null && req.query.name !== '') {
     searchOptions.name = new RegExp(req.query.name, 'i')
   }
+
+  let perPage = 5
+  let page = req.query.page || 1
+
   try {
     const collaborators = await Collaborator.find(searchOptions)
+      .skip(perPage * page - perPage)
+      .limit(perPage)
+      .exec()
+    const count = await Collaborator.count()
+
     res.render('collaborators/index', {
       collaborators: collaborators,
       searchOptions: req.query,
+      current: page,
+      pages: Math.ceil(count / perPage),
       layout: '../views/layouts/main',
     })
   } catch (error) {
