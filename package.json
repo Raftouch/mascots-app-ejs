@@ -2,11 +2,11 @@
   "name": "theatre-app-0",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "node server.js",
     "build:css": "postcss public/styles/tailwind.css -o public/styles/styles.css",
-    "dev": "concurrently \"nodemon app.js\" \"npm run build:css\""
+    "dev": "concurrently \"nodemon server.js\" \"npm run build:css\""
   },
   "keywords": [],
   "author": "",
