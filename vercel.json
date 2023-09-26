@@ -1,6 +1,4 @@
 {
-  "version": 2,
-  "name": "mascots-app",
   "builds": [{ "src": "app.js", "use": "@vercel/node" }],
   "routes": [{ "src": "/(.*)", "dest": "/app.js" }]
 }
