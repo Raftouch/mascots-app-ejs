@@ -3,7 +3,7 @@ const Mascot = require('../models/mascot')
 const router = express.Router()
 const path = require('path')
 const uploadPath = path.join('public', Mascot.imageBasePath)
-const imageMimeTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif']
+const imageMimeTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp']
 const { ensureAuthenticated } = require('../config/auth')
 const {
   getAll,
